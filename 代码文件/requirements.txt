@@ -1,0 +1,5 @@
+pandas
+tkinter
+fpdf
+sqlite3
+matplotlib

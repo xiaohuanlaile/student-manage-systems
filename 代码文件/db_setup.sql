@@ -1,0 +1,49 @@
+CREATE TABLE IF NOT EXISTS Users (
+    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+    StudentID INTEGER NOT NULL,
+    Name TEXT NOT NULL,
+    Password TEXT NOT NULL,
+    Role TEXT NOT NULL CHECK (Role IN ('teacher', 'student'))
+);
+
+CREATE TABLE IF NOT EXISTS Students (
+    StudentID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL,
+    Gender TEXT NOT NULL,
+    Age INTEGER NOT NULL,
+    Class TEXT NOT NULL,
+    EnrollmentDate TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Courses (
+    CourseID INTEGER PRIMARY KEY AUTOINCREMENT,
+    CourseName TEXT NOT NULL,
+    CourseDescription TEXT
+);
+
+CREATE TABLE IF NOT EXISTS Scores (
+    ScoreID INTEGER PRIMARY KEY AUTOINCREMENT,
+    StudentID INTEGER,
+    CourseID INTEGER,
+    RegularGrade REAL,
+    MidtermGrade REAL,
+    FinalGrade REAL,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);
+
+CREATE TABLE IF NOT EXISTS Settings (
+    SettingID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name TEXT NOT NULL UNIQUE,
+    Value TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ExceptionDataHandling (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    DataType TEXT NOT NULL,
+    ExceptionRule TEXT NOT NULL,
+    DetectedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    StudentID INTEGER,
+    ScoreID INTEGER,
+    Description TEXT
+);
